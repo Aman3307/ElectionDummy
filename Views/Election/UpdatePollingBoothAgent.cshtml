@@ -1,0 +1,38 @@
+﻿@model ElectionDummy.Models.PollingBoothAgent
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Update Polling Booth Agent</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyD1i6q6Z/Cv3IIpzp1teVXeLauUZ5z5dF" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Update Polling Booth Agent</h2>
+
+        <form method="post" asp-action="UpdatePollingBoothAgent">
+            <input asp-for="PollingAgentId" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="Name">Name:</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNo">Contact No:</label>
+                <input asp-for="ContactNo" class="form-control" />
+            </div>
+
+            <!-- Add other input fields as needed for PollingBoothAgentViewModel properties -->
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        <a asp-controller="Election" asp-action="PollingBoothDetails" asp-route-BlockId="@Model.PollingBoothId" class="btn btn-secondary mt-3">Back to Polling Booth Details</a>
+    </div>
+
+    <!-- Bootstrap JS (including Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyD1i6q6Z/Cv3IIpzp1teVXeLauUZ5z5dF" crossorigin="anonymous"></script>
+</body>
+</html>

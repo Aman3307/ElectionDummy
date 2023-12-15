@@ -1,0 +1,169 @@
+﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIxWAHARgXA" crossorigin="anonymous">
+
+<!-- Add FontAwesome link -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha384-o0MkG6ZN3qTmz4l3r5C2OUKFXz9TShh3WQqQ5Qf8gYc1L+EKMA5A7tfyv5DIg9tE"
+      crossorigin="anonymous">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+
+    .phone-icons {
+        font-size: 20px;
+    }
+</style>
+
+@model ElectionDummy.Models.BlockDetailsViewModel
+
+<div class="container">
+    <h2>@Model.BlockName Details</h2>
+
+    <!-- General Block Information -->
+    <p>General Population: @Model.GeneralPopulation</p>
+    <p>OBC Population: @Model.OBCPopulation</p>
+    <p>SC Population: @Model.SCPopulation</p>
+    <p>ST Population: @Model.STPopulation</p>
+    <p>Yadav Population: @Model.YadavPopulation</p>
+    <p>Previous Year Vote: @Model.PreviousYearVote</p>
+
+    <!-- Presidents -->
+    <h3>Presidents</h3>
+    @if (Model.BlockPresident != null && Model.BlockPresident.Any())
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>President Name</th>
+                <th>Contact No</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var president in Model.BlockPresident)
+            {
+                <tr>
+                    <td>@president.PresidentName</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(president.ContactNo))
+                        {
+                            <span class="phone-icons">
+                                <span>@president.ContactNo</span>
+                                <a href="tel:@president.ContactNo" class="phone-link">
+                                    <i class="fas fa-phone"></i> Call
+                                </a>
+                                <a href="sms:@president.ContactNo" class="phone-link">
+                                    <i class="fas fa-comment"></i> Message
+                                </a>
+                            </span>
+                        }
+                        else
+                        {
+                            <span>Contact information not available</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a class="btn btn-primary" asp-action="UpdateBlockPresident" asp-route-PId="@president.PId">Edit</a>
+                        <a class="btn btn-danger" asp-action="DeleteBlockPresident" asp-route-PId="@president.PId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Presidents available for this Block</p>
+    }
+    <!-- Add option to create a new President -->
+    <a class="btn btn-success" asp-controller="Election" asp-action="InsertBlockPresident" asp-route-blockId="@Model.BlockId">Create New President</a>
+
+    <!-- Vice Presidents -->
+    <h3>Vice Presidents</h3>
+    @if (Model.BlockVicePresident != null && Model.BlockVicePresident.Any())
+    {
+        <table class="table table-bordered">
+            <tr>
+                <th>Vice President Name</th>
+                <th>Contact No</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var vicePresident in Model.BlockVicePresident)
+            {
+                <tr>
+                    <td>@vicePresident.VicePresidentName</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(vicePresident.ContactNo))
+                        {
+                            <span class="phone-icons">
+                                <span>@vicePresident.ContactNo</span>
+                                <a href="tel:@vicePresident.ContactNo" class="phone-link">
+                                    <i class="fas fa-phone"></i> Call
+                                </a>
+                                <a href="sms:@vicePresident.ContactNo" class="phone-link">
+                                    <i class="fas fa-comment"></i> Message
+                                </a>
+                            </span>
+                        }
+                        else
+                        {
+                            <span>Contact information not available</span>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Election" asp-action="UpdateBlockVicePresident" asp-route-VPId="@vicePresident.VPId">Edit</a>
+                        <a class="btn btn-danger" asp-action="DeleteBlockVicePresident" asp-route-VPId="@vicePresident.VPId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No Vice Presidents available for this Block</p>
+    }
+
+    <!-- Add option to create a new Vice President -->
+    <a class="btn btn-success" asp-controller="Election" asp-action="InsertBlockVicePresident" asp-route-blockId="@Model.BlockId">Create New Vice President</a>
+
+    <!-- Select Panchayat -->
+    <h3>Select Panchayat:</h3>
+    <form asp-controller="Election" asp-action="PanchayatDetails" method="get">
+        <div class="form-group">
+            <label for="panchayatDropdown">Select Block:</label>
+            <select class="form-control" id="panchayatDropdown" name="panchayatId">
+                @foreach (var panchayat in Model.Panchayat)
+                {
+                    <option value="@panchayat.PanchayatId">@panchayat.PanchayatName</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Go to Panchayat Details</button>
+    </form>
+
+
+</div>
+
+<script>
+    // JavaScript to handle the selected block
+    var selectedPanchayatId;
+
+    document.getElementById("panchayatDropdown").addEventListener("change", function () {
+        selectedPanchayatId = this.value;
+    });
+
+            // The form will submit automatically with the selected value
+</script>

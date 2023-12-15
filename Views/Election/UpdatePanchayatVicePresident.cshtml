@@ -1,0 +1,42 @@
+﻿
+@model ElectionDummy.Models.PanchayatVicePresident
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Update Panchayat Vice President</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- Add other styles or scripts as needed -->
+</head>
+<body>
+    <div class="container mt-3">
+        <h2>Update Panchayat Vice President</h2>
+
+        <form asp-action="UpdatePanchayatVicePresident">
+            <input asp-for="VPId" type="hidden" />
+
+            <div class="form-group">
+                <label asp-for="VicePresidentName">Name:</label>
+                <input asp-for="VicePresidentName" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ContactNo">Contact No:</label>
+                <input asp-for="ContactNo" class="form-control" />
+            </div>
+
+            <!-- Add other input fields as needed for BlockVicePresident properties -->
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
+        <a asp-controller="Election" asp-action="BlockDetails" asp-route-BlockId="@Model.PanchayatId" class="btn btn-secondary mt-3">Back to Panchayat Details</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- Add other scripts as needed -->
+</body>
+</html>

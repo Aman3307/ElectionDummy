@@ -1,0 +1,34 @@
+﻿@model ElectionDummy.Models.BlockVicePresident
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete Block Vice President</title>
+    <!-- Include necessary styles or scripts here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIxWAHARgXA" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Delete Block Vice President</h2>
+
+        <div class="alert alert-danger">
+            <p>Are you sure you want to delete the Block Vice President: <strong>@Model.VicePresidentName</strong>?</p>
+        </div>
+
+        <form asp-action="DeleteBlockVicePresidentConfirmed" method="post">
+            <input asp-for="VPId" type="hidden" />
+
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+
+        <a asp-controller="Election" asp-action="BlockDetails" asp-route-BlockId="@Model.BlockId" class="btn btn-secondary mt-3">Back to Block Details</a>
+    </div>
+
+    <!-- Include necessary scripts or additional content here -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN6b1NwIXNEK3FsWe/4b6I5nYFZd1pGEP" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIxWAHARgXA" crossorigin="anonymous"></script>
+</body>
+</html>

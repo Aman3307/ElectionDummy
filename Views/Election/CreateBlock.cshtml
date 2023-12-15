@@ -1,0 +1,58 @@
+﻿@model ElectionDummy.Models.Block
+
+@{
+    ViewData["Title"] = "Create Block";
+}
+
+<h2>Create Block</h2>
+
+<form asp-action="CreateBlock" method="post">
+    <div class="form-group">
+        <label asp-for="BlockName">Block Name:</label>
+        <input asp-for="BlockName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="GeneralPopulation">General Population:</label>
+        <input asp-for="GeneralPopulation" class="form-control" />
+        <span asp-validation-for="GeneralPopulation" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OBCPopulation">OBC Population:</label>
+        <input asp-for="OBCPopulation" class="form-control" />
+        <span asp-validation-for="OBCPopulation" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SCPopulation">SC Population:</label>
+        <input asp-for="SCPopulation" class="form-control" />
+        <span asp-validation-for="SCPopulation" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="STPopulation">ST Population:</label>
+        <input asp-for="STPopulation" class="form-control" />
+        <span asp-validation-for="STPopulation" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="YadavPopulation">Yadav Population:</label>
+        <input asp-for="YadavPopulation" class="form-control" />
+        <span asp-validation-for="YadavPopulation" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PreviousYearVote">Previous Year Vote:</label>
+        <input asp-for="PreviousYearVote" class="form-control" />
+        <span asp-validation-for="PreviousYearVote" class="text-danger"></span>
+    </div>
+
+    <!-- Other Block properties -->
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    <script>
+            // No cascading dropdowns for CreateBlock
+    </script>
+}

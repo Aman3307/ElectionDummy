@@ -1,0 +1,101 @@
+﻿<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIxWAHARgXA" crossorigin="anonymous">
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        color: #495057;
+    }
+
+    form {
+        margin-top: 20px;
+    }
+
+    button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+</style>
+
+@model ElectionDummy.Models.IndexViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyIxWAHARgXA" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="mt-3">@ViewBag.Message</p>
+
+        <form asp-controller="Election" asp-action="BlockDetails" method="get">
+            <div class="form-group">
+                <label for="blockDropdown">Select Block:</label>
+                <select class="form-control" id="blockDropdown" name="blockId">
+                    @foreach (var block in Model.Block)
+                    {
+                        <option value="@block.BlockId">@block.BlockName</option>
+                    }
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Go to Block Details</button>
+        </form>
+    </div>
+    <div class="container mt-3">
+        <h4>Create New:</h4>
+
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a asp-action="CreateBlock" asp-controller="Election">Create New Block</a>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="CreatePanchayat" asp-controller="Election">Create New Panchayat</a>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="CreateVillage" asp-controller="Election">Create New Village</a>
+            </li>
+            <li class="list-group-item">
+                <a asp-action="CreatePollingBooth" asp-controller="Election">Create New Polling Booth</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript to handle the selected block
+        var selectedBlockId;
+
+        document.getElementById("blockDropdown").addEventListener("change", function () {
+            selectedBlockId = this.value;
+        });
+
+                // The form will submit automatically with the selected value
+    </script>
+</body>
+</html>
+

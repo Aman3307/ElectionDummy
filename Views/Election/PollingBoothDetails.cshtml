@@ -1,0 +1,106 @@
+﻿@model ElectionDummy.Models.PollingBoothDetailsViewModel
+
+@{
+    ViewData["Title"] = "Polling Booth Details";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Polling Booth Details</h2>
+
+        <table class="table table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Polling Booth Name</th>
+                    <th>General Population</th>
+                    <th>OBC Population</th>
+                    <th>SC Population</th>
+                    <th>ST Population</th>
+                    <th>Yadav Population</th>
+                    <th>Previous Year Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.PollingBoothName</td>
+                    <td>@Model.GeneralPopulation</td>
+                    <td>@Model.OBCPopulation</td>
+                    <td>@Model.SCPopulation</td>
+                    <td>@Model.STPopulation</td>
+                    <td>@Model.YadavPopulation</td>
+                    <td>@Model.PreviousYearVote</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Polling Booth Agents</h3>
+        <table class="table table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Agent Name</th>
+                    <th>Contact No</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pollingBoothAgent
+                    in Model.PollingBoothAgent)
+                {
+                    <tr>
+                        <td>@pollingBoothAgent.Name</td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(pollingBoothAgent.ContactNo))
+                            {
+                                <span class="phone-icons">
+                                    <span>@pollingBoothAgent.ContactNo</span>
+                                    <a href="tel:@pollingBoothAgent.ContactNo" class="phone-link">
+                                        <i class="fas fa-phone"></i> Call
+                                    </a>
+                                    <a href="sms:@pollingBoothAgent.ContactNo" class="phone-link">
+                                        <i class="fas fa-comment"></i> Message
+                                    </a>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>Contact information not available</span>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="UpdatePollingBoothAgent" asp-route-pollingAgentId="@pollingBoothAgent.PollingAgentId" class="btn btn-info">Edit</a>
+                            <a asp-action="DeletePollingBoothAgent" asp-route-pollingAgentId="@pollingBoothAgent.PollingAgentId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col-md-6">
+                <a asp-controller="Election" asp-action="Index" class="btn btn-secondary">Back</a>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-primary" onclick="location.href='@Url.Action("InsertPollingBoothAgent", "Election", new { pollingBoothId = Model.PollingBoothId })'">Create New Polling Agent</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js links (required for some Bootstrap components) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha384-bDeROZyFCxKS3r3uAsdxejfgAwU5/ghy4ktjUR5cbkXD9+8B42QFLXgr/NW2MxFJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+Wy9LkLuMzne1F1BXS13/JPIpXUKL+Iehvx" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
