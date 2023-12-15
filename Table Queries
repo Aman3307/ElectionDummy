@@ -1,0 +1,304 @@
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[Block]    Script Date: 12/15/2023 3:49:16 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Block](
+	[BlockId] [int] IDENTITY(1,1) NOT NULL,
+	[BlockName] [varchar](255) NULL,
+	[GeneralPopulation] [int] NULL,
+	[OBCPopulation] [int] NULL,
+	[SCPopulation] [int] NULL,
+	[STPopulation] [int] NULL,
+	[YadavPopulation] [int] NULL,
+	[PreviousYearVote] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[BlockId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[BlockPresident]    Script Date: 12/15/2023 3:49:42 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[BlockPresident](
+	[PId] [int] IDENTITY(1,1) NOT NULL,
+	[PresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[BlockId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[BlockVicePresident]    Script Date: 12/15/2023 3:49:54 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[BlockVicePresident](
+	[VPId] [int] IDENTITY(1,1) NOT NULL,
+	[VicePresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[BlockId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[VPId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[Panchayat]    Script Date: 12/15/2023 3:50:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Panchayat](
+	[PanchayatId] [int] IDENTITY(1,1) NOT NULL,
+	[PanchayatName] [varchar](255) NULL,
+	[BlockId] [int] NULL,
+	[GeneralPopulation] [int] NULL,
+	[OBCPopulation] [int] NULL,
+	[SCPopulation] [int] NULL,
+	[STPopulation] [int] NULL,
+	[YadavPopulation] [int] NULL,
+	[PreviousYearVote] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PanchayatId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Panchayat]  WITH CHECK ADD FOREIGN KEY([BlockId])
+REFERENCES [dbo].[Block] ([BlockId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[PanchayatPresident]    Script Date: 12/15/2023 3:50:18 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PanchayatPresident](
+	[PId] [int] IDENTITY(1,1) NOT NULL,
+	[PresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[PanchayatId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PanchayatPresident]  WITH CHECK ADD FOREIGN KEY([PanchayatId])
+REFERENCES [dbo].[Panchayat] ([PanchayatId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[PanchayatVicePresident]    Script Date: 12/15/2023 3:50:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PanchayatVicePresident](
+	[VPId] [int] IDENTITY(1,1) NOT NULL,
+	[VicePresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[PanchayatId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[VPId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PanchayatVicePresident]  WITH CHECK ADD FOREIGN KEY([PanchayatId])
+REFERENCES [dbo].[Panchayat] ([PanchayatId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[PollingBooth]    Script Date: 12/15/2023 3:50:41 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PollingBooth](
+	[PollingBoothId] [int] IDENTITY(1,1) NOT NULL,
+	[PollingBoothName] [varchar](255) NULL,
+	[GeneralPopulation] [int] NULL,
+	[OBCPopulation] [int] NULL,
+	[SCPopulation] [int] NULL,
+	[STPopulation] [int] NULL,
+	[YadavPopulation] [int] NULL,
+	[PreviousYearVote] [int] NULL,
+	[VillageId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PollingBoothId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PollingBooth]  WITH CHECK ADD FOREIGN KEY([VillageId])
+REFERENCES [dbo].[Village] ([VillageId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[PollingBoothAgent]    Script Date: 12/15/2023 3:50:52 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[PollingBoothAgent](
+	[PollingAgentId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](255) NULL,
+	[ContactNo] [varchar](15) NULL,
+	[PollingBoothId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PollingAgentId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[PollingBoothAgent]  WITH CHECK ADD FOREIGN KEY([PollingBoothId])
+REFERENCES [dbo].[PollingBooth] ([PollingBoothId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[Village]    Script Date: 12/15/2023 3:51:05 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[Village](
+	[VillageId] [int] IDENTITY(1,1) NOT NULL,
+	[VillageName] [varchar](255) NULL,
+	[PanchayatId] [int] NULL,
+	[GeneralPopulation] [int] NULL,
+	[OBCPopulation] [int] NULL,
+	[SCPopulation] [int] NULL,
+	[STPopulation] [int] NULL,
+	[PreviousYearVote] [int] NULL,
+	[YadavPopulation] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[VillageId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Village]  WITH CHECK ADD FOREIGN KEY([PanchayatId])
+REFERENCES [dbo].[Panchayat] ([PanchayatId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[VillagePresident]    Script Date: 12/15/2023 3:51:20 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[VillagePresident](
+	[PId] [int] IDENTITY(1,1) NOT NULL,
+	[PresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[VillageId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[VillagePresident]  WITH CHECK ADD FOREIGN KEY([VillageId])
+REFERENCES [dbo].[Village] ([VillageId])
+GO
+
+
+USE [ElectionDummy]
+GO
+
+/****** Object:  Table [dbo].[VillageVicePresident]    Script Date: 12/15/2023 3:51:30 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[VillageVicePresident](
+	[VPId] [int] IDENTITY(1,1) NOT NULL,
+	[VicePresidentName] [varchar](255) NOT NULL,
+	[ContactNo] [varchar](20) NOT NULL,
+	[VillageId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[VPId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[VillageVicePresident]  WITH CHECK ADD FOREIGN KEY([VillageId])
+REFERENCES [dbo].[Village] ([VillageId])
+GO
+
+
