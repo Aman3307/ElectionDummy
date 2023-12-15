@@ -1,0 +1,1193 @@
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteBlock]    Script Date: 12/15/2023 3:52:39 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[DeleteBlock]
+    @BlockId INT
+AS
+BEGIN
+    DELETE FROM Block WHERE BlockId = @BlockId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteBlockPresident]    Script Date: 12/15/2023 3:52:48 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[DeleteBlockPresident]
+    @PId INT
+AS
+BEGIN
+    DELETE FROM BlockPresident WHERE PId = @PId;
+END
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteBlockVicePresident]    Script Date: 12/15/2023 3:53:01 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete BlockVicePresident
+ALTER PROCEDURE [dbo].[DeleteBlockVicePresident]
+    @VPId INT
+AS
+BEGIN
+    DELETE FROM BlockVicePresident WHERE VPId = @VPId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeletePanchayat]    Script Date: 12/15/2023 3:53:11 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete Panchayat
+ALTER PROCEDURE [dbo].[DeletePanchayat]
+    @PanchayatId INT
+AS
+BEGIN
+    DELETE FROM Panchayat WHERE PanchayatId = @PanchayatId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeletePanchayatPresident]    Script Date: 12/15/2023 3:53:25 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[DeletePanchayatPresident]
+    @PId INT
+AS
+BEGIN
+    DELETE FROM PanchayatPresident WHERE PId = @PId;
+END
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeletePanchayatVicePresident]    Script Date: 12/15/2023 3:53:35 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete BlockVicePresident
+ALTER PROCEDURE [dbo].[DeletePanchayatVicePresident]
+    @VPId INT
+AS
+BEGIN
+    DELETE FROM PanchayatVicePresident WHERE VPId = @VPId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeletePollingBooth]    Script Date: 12/15/2023 3:53:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete PollingBooth by ID
+ALTER PROCEDURE [dbo].[DeletePollingBooth]
+    @PollingBoothId INT
+AS
+BEGIN
+    DELETE FROM PollingBooth WHERE PollingBoothId = @PollingBoothId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeletePollingBoothAgent]    Script Date: 12/15/2023 3:53:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete BlockVicePresident
+ALTER PROCEDURE [dbo].[DeletePollingBoothAgent]
+    @PollingAgentId INT
+AS
+BEGIN
+    DELETE FROM PollingBoothAgent WHERE PollingAgentId = @POllingAgentId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteVillagePresident]    Script Date: 12/15/2023 3:54:04 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[DeleteVillagePresident]
+    @PId INT
+AS
+BEGIN
+    DELETE FROM VillagePresident WHERE PId = @PId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[DeleteVillageVicePresident]    Script Date: 12/15/2023 3:54:12 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Delete BlockVicePresident
+ALTER PROCEDURE [dbo].[DeleteVillageVicePresident]
+    @VPId INT
+AS
+BEGIN
+    DELETE FROM VillageVicePresident WHERE VPId = @VPId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockById]    Script Date: 12/15/2023 3:54:20 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find Block by ID
+ALTER PROCEDURE [dbo].[FindBlockById]
+    @BlockId INT
+AS
+BEGIN
+    SELECT * FROM Block WHERE BlockId = @BlockId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockPanchayatListBlockPresidentBlockVicePresidentByBlockId]    Script Date: 12/15/2023 3:54:28 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Add columns for PID, VPID, and ContactNo
+ALTER PROCEDURE [dbo].[FindBlockPanchayatListBlockPresidentBlockVicePresidentByBlockId]
+    @BlockId INT
+AS
+BEGIN
+    -- Fetch data for Block
+    SELECT * FROM Block WHERE BlockId = @BlockId;
+
+    -- Fetch data for BlockPresident with additional columns PID and ContactNo
+    SELECT PId, PresidentName, ContactNo FROM BlockPresident WHERE BlockId = @BlockId;
+
+    -- Fetch data for BlockVicePresident with additional columns VPID and ContactNo
+    SELECT * FROM BlockVicePresident WHERE BlockId = @BlockId;
+
+    -- Fetch data for Panchayat
+    SELECT * FROM Panchayat WHERE BlockId = @BlockId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockPresidentByBlockId]    Script Date: 12/15/2023 3:54:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindBlockPresidentByBlockId]
+    @BlockId INT
+AS
+BEGIN
+    SELECT * FROM BlockPresident
+    WHERE BlockId = @BlockId;
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockPresidentById]    Script Date: 12/15/2023 3:54:46 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find BlockPresident by ID
+ALTER PROCEDURE [dbo].[FindBlockPresidentById]
+    @PId INT
+AS
+BEGIN
+    SELECT * FROM BlockPresident WHERE PId = @PId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockVicePresidentByBlockId]    Script Date: 12/15/2023 3:54:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindBlockVicePresidentByBlockId]
+    @BlockId INT
+AS
+BEGIN
+    SELECT * FROM BlockVicePresident
+    WHERE BlockId = @BlockId;
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindBlockVicePresidentById]    Script Date: 12/15/2023 3:55:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find BlockVicePresident by ID
+ALTER PROCEDURE [dbo].[FindBlockVicePresidentById]
+    @VPId INT
+AS
+BEGIN
+    SELECT * FROM BlockVicePresident WHERE VPId = @VPId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatByBlockId]    Script Date: 12/15/2023 3:55:16 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPanchayatByBlockId]
+    @BlockId INT
+AS
+BEGIN
+    SELECT *
+    FROM Panchayat
+    WHERE BlockId = @BlockId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatById]    Script Date: 12/15/2023 3:55:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find Panchayat by ID
+ALTER PROCEDURE [dbo].[FindPanchayatById]
+    @PanchayatId INT
+AS
+BEGIN
+    SELECT * FROM Panchayat WHERE PanchayatId = @PanchayatId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatPresidentById]    Script Date: 12/15/2023 3:55:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPanchayatPresidentById]
+    @PId INT
+AS
+BEGIN
+    SELECT * FROM PanchayatPresident WHERE PId = @PId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatPresidentByPanchayatId]    Script Date: 12/15/2023 3:55:51 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPanchayatPresidentByPanchayatId]
+    @PanchayatId INT
+As
+BEGIN
+    SELECT * FROM PanchayatPresident
+    WHERE PanchayatId = @PanchayatId;
+End
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatVicePresidentById]    Script Date: 12/15/2023 3:56:00 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPanchayatVicePresidentById]
+    @VPId INT
+AS
+BEGIN
+    SELECT * FROM PanchayatVicePresident WHERE VPId = @VPId;
+END
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatVicePresidentByPanchayatId]    Script Date: 12/15/2023 3:56:09 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPanchayatVicePresidentByPanchayatId]
+    @PanchayatId INT
+As
+BEGIN
+    SELECT * FROM PanchayatVicePresident
+    WHERE PanchayatId = @PanchayatId;
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPanchayatVillageListPanchayatPresidentPanchayatVicePresidentByPanchayatId]    Script Date: 12/15/2023 3:56:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Add columns for PID, VPID, and ContactNo
+ALTER PROCEDURE [dbo].[FindPanchayatVillageListPanchayatPresidentPanchayatVicePresidentByPanchayatId]
+    @PanchayatId INT
+AS
+BEGIN
+    -- Fetch data for Block
+    SELECT * FROM Panchayat WHERE PanchayatId = @PanchayatId;
+
+    -- Fetch data for BlockPresident with additional columns PID and ContactNo
+    SELECT PId, PresidentName, ContactNo FROM PanchayatPresident WHERE PanchayatId = @PanchayatId;
+
+    -- Fetch data for BlockVicePresident with additional columns VPID and ContactNo
+    SELECT VPId, VicePresidentName, ContactNo FROM PanchayatVicePresident WHERE PanchayatId = @PanchayatId;
+
+    -- Fetch data for Panchayat
+    SELECT * FROM Village WHERE PanchayatId = @PanchayatId;
+END
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPollingBoothAgentById]    Script Date: 12/15/2023 3:56:30 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find PollingBoothAgent by ID
+ALTER PROCEDURE [dbo].[FindPollingBoothAgentById]
+    @PollingAgentId INT
+AS
+BEGIN
+    SELECT * FROM PollingBoothAgent WHERE PollingAgentId = @PollingAgentId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPollingBoothAgentsByPollingBoothId]    Script Date: 12/15/2023 3:56:41 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindPollingBoothAgentsByPollingBoothId]
+    @PollingBoothId INT
+AS
+BEGIN
+    SELECT * FROM PollingBoothAgent
+    WHERE PollingBoothId = @PollingBoothId;
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPollingBoothById]    Script Date: 12/15/2023 3:56:49 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find PollingBooth by ID
+ALTER PROCEDURE [dbo].[FindPollingBoothById]
+    @PollingBoothId INT
+AS
+BEGIN
+    SELECT * FROM PollingBooth WHERE PollingBoothId = @PollingBoothId;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindPollingBoothPollingBoothAgentByPollingBoothId]    Script Date: 12/15/2023 3:56:57 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[FindPollingBoothPollingBoothAgentByPollingBoothId]
+    @PollingBoothId INT
+AS
+BEGIN
+    -- Fetch data for Block
+    SELECT * FROM PollingBooth WHERE PollingBoothId = @PollingBoothId;
+
+    -- Fetch data for BlockPresident with additional columns PID and ContactNo
+    SELECT * FROM PollingBoothAgent WHERE PollingBoothId = @PollingBoothId;
+
+   
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillageById]    Script Date: 12/15/2023 3:57:09 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Find Village by ID
+ALTER PROCEDURE [dbo].[FindVillageById]
+    @VillageId INT
+AS
+BEGIN
+    SELECT * FROM Village WHERE VillageId = @VillageId;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillageByPanchayatId]    Script Date: 12/15/2023 3:57:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindVillageByPanchayatId]
+    @PanchayatId INT
+AS
+BEGIN
+    SELECT *
+    FROM Village
+    WHERE PanchayatId = @PanchayatId;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillagePollingBoothListVillagePresidentVillageVicePresientByVillageId]    Script Date: 12/15/2023 3:57:29 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Add columns for PID, VPID, and ContactNo
+ALTER PROCEDURE [dbo].[FindVillagePollingBoothListVillagePresidentVillageVicePresientByVillageId]
+    @VillageId INT
+AS
+BEGIN
+    -- Fetch data for Village
+    SELECT * FROM Village WHERE VillageId = @VillageId;
+
+    -- Fetch data for BlockPresident with additional columns PID and ContactNo
+    SELECT PId, PresidentName, ContactNo FROM VillagePresident WHERE VillageId = @VillageId;
+
+    -- Fetch data for BlockVicePresident with additional columns VPID and ContactNo
+    SELECT VPId, VicePresidentName, ContactNo FROM VillageVicePresident WHERE VillageId = @VillageId;
+
+    -- Fetch data for Panchayat
+    SELECT * FROM PollingBooth WHERE VillageId = @VillageId;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillagePresidentById]    Script Date: 12/15/2023 3:57:38 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindVillagePresidentById]
+    @PId INT
+AS
+BEGIN
+    SELECT * FROM VillagePresident WHERE PId = @PId;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillagePresidentByVillageId]    Script Date: 12/15/2023 3:57:46 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindVillagePresidentByVillageId]
+    @VillageId INT
+As
+BEGIN
+    SELECT * FROM VillagePresident
+    WHERE VillageId = @VillageId;
+End
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillageVicePresidentById]    Script Date: 12/15/2023 3:57:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindVillageVicePresidentById]
+    @VPId INT
+AS
+BEGIN
+    SELECT * FROM VillageVicePresident WHERE VPId = @VPId;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[FindVillageVicePresidentByVillageId]    Script Date: 12/15/2023 3:58:03 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[FindVillageVicePresidentByVillageId]
+    @VillageId INT
+As
+BEGIN
+    SELECT * FROM VillageVicePresident
+    WHERE VillageId = @VillageId;
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetBlockPresidents]    Script Date: 12/15/2023 3:58:13 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetBlockPresidents]
+AS
+BEGIN
+    SELECT * FROM BlockPresident;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetBlocks]    Script Date: 12/15/2023 3:58:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[GetBlocks]
+AS
+BEGIN
+    SELECT * FROM Block;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetBlockVicePresidents]    Script Date: 12/15/2023 3:58:36 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Read BlockVicePresident
+ALTER PROCEDURE [dbo].[GetBlockVicePresidents]
+AS
+BEGIN
+    SELECT * FROM BlockVicePresident;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetPanchayatPresidents]    Script Date: 12/15/2023 3:58:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get Village Presidents
+ALTER PROCEDURE [dbo].[GetPanchayatPresidents]
+AS
+BEGIN
+    SELECT * FROM PanchayatPresident;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetPanchayats]    Script Date: 12/15/2023 3:58:55 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Read Panchayats
+ALTER PROCEDURE [dbo].[GetPanchayats]
+AS
+BEGIN
+    SELECT * FROM Panchayat;
+END
+
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetPanchayatVicePresidents]    Script Date: 12/15/2023 3:59:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get Village Presidents
+ALTER PROCEDURE [dbo].[GetPanchayatVicePresidents]
+AS
+BEGIN
+    SELECT * FROM PanchayatVicePresident;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetPollingBoothAgents]    Script Date: 12/15/2023 3:59:14 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get PollingBoothAgents
+ALTER PROCEDURE [dbo].[GetPollingBoothAgents]
+AS
+BEGIN
+    SELECT * FROM PollingBoothAgent;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetPollingBooths]    Script Date: 12/15/2023 3:59:25 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get PollingBooths
+ALTER PROCEDURE [dbo].[GetPollingBooths]
+AS
+BEGIN
+    SELECT * FROM PollingBooth;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetVillagePresidents]    Script Date: 12/15/2023 3:59:33 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get Village Presidents
+ALTER PROCEDURE [dbo].[GetVillagePresidents]
+AS
+BEGIN
+    SELECT * FROM VillagePresident;
+END
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetVillages]    Script Date: 12/15/2023 3:59:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get Villages
+ALTER PROCEDURE [dbo].[GetVillages]
+AS
+BEGIN
+    SELECT * FROM Village;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[GetVillageVicePresidents]    Script Date: 12/15/2023 3:59:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- Get Village Presidents
+ALTER PROCEDURE [dbo].[GetVillageVicePresidents]
+AS
+BEGIN
+    SELECT * FROM VillageVicePresident;
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertBlock]    Script Date: 12/15/2023 4:00:05 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertBlock]
+    @BlockName NVARCHAR(255),
+    @GeneralPopulation INT,
+    @OBCPopulation INT,
+    @SCPopulation INT,
+    @STPopulation INT,
+    @YadavPopulation INT,
+    @PreviousYearVote INT
+AS
+BEGIN
+    INSERT INTO [dbo].[Block] (BlockName, GeneralPopulation, OBCPopulation, SCPopulation, STPopulation, YadavPopulation, PreviousYearVote)
+    VALUES (@BlockName, @GeneralPopulation, @OBCPopulation, @SCPopulation, @STPopulation, @YadavPopulation, @PreviousYearVote);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertBlockPresident]    Script Date: 12/15/2023 4:00:13 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertBlockPresident]
+    @PresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @BlockId INT
+AS
+BEGIN
+    -- Insert without checking for existence
+    INSERT INTO [dbo].[BlockPresident] ([PresidentName], [ContactNo], [BlockId])
+    VALUES (@PresidentName, @ContactNo, @BlockId);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertBlockVicePresident]    Script Date: 12/15/2023 4:00:21 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertBlockVicePresident]
+    @VicePresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @BlockId INT
+AS
+BEGIN
+    -- Insert without checking for existence
+    INSERT INTO [dbo].[BlockVicePresident] ([VicePresidentName], [ContactNo], [BlockId])
+    VALUES (@VicePresidentName, @ContactNo, @BlockId);
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertPanchayat]    Script Date: 12/15/2023 4:00:31 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertPanchayat]
+    @PanchayatName NVARCHAR(255),
+    @BlockId INT,  -- Foreign Key reference to Block table
+    @GeneralPopulation INT,
+    @OBCPopulation INT,
+    @SCPopulation INT,
+    @STPopulation INT,
+    @YadavPopulation INT,
+    @PreviousYearVote INT
+AS
+BEGIN
+    INSERT INTO [dbo].[Panchayat] (PanchayatName, BlockId, GeneralPopulation, OBCPopulation, SCPopulation, STPopulation, YadavPopulation, PreviousYearVote)
+    VALUES (@PanchayatName, @BlockId, @GeneralPopulation, @OBCPopulation, @SCPopulation, @STPopulation, @YadavPopulation, @PreviousYearVote);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertPanchayatPresident]    Script Date: 12/15/2023 4:00:42 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertPanchayatPresident]
+    @PresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @PanchayatId INT
+AS
+BEGIN
+    -- Insert without checking for existence
+    INSERT INTO [dbo].[PanchayatPresident] ([PresidentName], [ContactNo], [PanchayatId])
+    VALUES (@PresidentName, @ContactNo, @PanchayatId);
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertPanchayatVicePresident]    Script Date: 12/15/2023 4:00:50 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertPanchayatVicePresident]
+    @VicePresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @PanchayatId INT
+AS
+BEGIN
+    -- Insert without checking for existence
+    INSERT INTO [dbo].[PanchayatVicePresident] ([VicePresidentName], [ContactNo], [PanchayatId])
+    VALUES (@VicePresidentName, @ContactNo, @PanchayatId);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertPollingBooth]    Script Date: 12/15/2023 4:00:58 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertPollingBooth]
+    @PollingBoothName NVARCHAR(255),
+    @VillageId INT,  -- Foreign Key reference to Village table
+    @GeneralPopulation INT,
+    @OBCPopulation INT,
+    @SCPopulation INT,
+    @STPopulation INT,
+    @YadavPopulation INT,
+    @PreviousYearVote INT
+AS
+BEGIN
+    -- Log parameter values
+    PRINT 'InsertPollingBooth - Parameters:';
+    PRINT 'PollingBoothName: ' + CONVERT(NVARCHAR(255), @PollingBoothName);
+    PRINT 'VillageId: ' + CONVERT(NVARCHAR(255), @VillageId);
+    PRINT 'GeneralPopulation: ' + CONVERT(NVARCHAR(255), @GeneralPopulation);
+    PRINT 'OBCPopulation: ' + CONVERT(NVARCHAR(255), @OBCPopulation);
+    PRINT 'SCPopulation: ' + CONVERT(NVARCHAR(255), @SCPopulation);
+    PRINT 'STPopulation: ' + CONVERT(NVARCHAR(255), @STPopulation);
+    PRINT 'YadavPopulation: ' + CONVERT(NVARCHAR(255), @YadavPopulation);
+    PRINT 'PreviousYearVote: ' + CONVERT(NVARCHAR(255), @PreviousYearVote);
+
+    -- Insert into PollingBooth table
+    INSERT INTO [dbo].[PollingBooth] (PollingBoothName, VillageId, GeneralPopulation, OBCPopulation, SCPopulation, STPopulation, YadavPopulation, PreviousYearVote)
+    VALUES (@PollingBoothName, @VillageId, @GeneralPopulation, @OBCPopulation, @SCPopulation, @STPopulation, @YadavPopulation, @PreviousYearVote);
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertPollingBoothAgent]    Script Date: 12/15/2023 4:01:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[InsertPollingBoothAgent]
+    @Name VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @PollingBoothId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Insert a new record
+    INSERT INTO [dbo].[PollingBoothAgent] ([Name], [ContactNo], [PollingBoothId])
+    VALUES (@Name, @ContactNo, @PollingBoothId);
+END
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertVillage]    Script Date: 12/15/2023 4:01:16 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertVillage]
+    @VillageName NVARCHAR(255),
+    @PanchayatId INT,  -- Foreign Key reference to Panchayat table
+    @GeneralPopulation INT,
+    @OBCPopulation INT,
+    @SCPopulation INT,
+    @STPopulation INT,
+    @YadavPopulation INT,
+    @PreviousYearVote INT
+AS
+BEGIN
+    INSERT INTO [dbo].[Village] (VillageName, PanchayatId, GeneralPopulation, OBCPopulation, SCPopulation, STPopulation, YadavPopulation, PreviousYearVote)
+    VALUES (@VillageName, @PanchayatId, @GeneralPopulation, @OBCPopulation, @SCPopulation, @STPopulation, @YadavPopulation, @PreviousYearVote);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertVillagePresident]    Script Date: 12/15/2023 4:01:25 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[InsertVillagePresident]
+    @PresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15),
+    @VillageId INT
+AS
+BEGIN
+    -- Insert without checking for existence
+    INSERT INTO [dbo].[VillagePresident] ([PresidentName], [ContactNo], [VillageId])
+    VALUES (@PresidentName, @ContactNo, @VillageId);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[InsertVillageVicePresident]    Script Date: 12/15/2023 4:01:34 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[InsertVillageVicePresident]
+    @VicePresidentName varchar(255),
+    @ContactNo varchar(20),
+    @VillageId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Insert new record
+    INSERT INTO VillageVicePresident (VicePresidentName, ContactNo, VillageId)
+    VALUES (@VicePresidentName, @ContactNo, @VillageId);
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateBlockPresident]    Script Date: 12/15/2023 4:01:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateBlockPresident]
+    @PId INT,
+    @Name VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[BlockPresident] WHERE [PId] = @PId)
+    BEGIN
+        -- Update if PId exists
+        UPDATE [dbo].[BlockPresident]
+        SET
+            [PresidentName] = @Name,
+            [ContactNo] = @ContactNo
+        WHERE
+            [PId] = @PId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if PId does not exist
+        INSERT INTO [dbo].[BlockPresident] ([PresidentName], [ContactNo])
+        VALUES (@Name, @ContactNo);
+    END
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateBlockVicePresident]    Script Date: 12/15/2023 4:01:56 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateBlockVicePresident]
+    @VPId INT,
+    @VicePresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[BlockVicePresident] WHERE [VPId] = @VPId)
+    BEGIN
+        -- Update if VPId exists
+        UPDATE [dbo].[BlockVicePresident]
+        SET
+            [VicePresidentName] = @VicePresidentName,
+            [ContactNo] = @ContactNo
+        WHERE
+            [VPId] = @VPId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if VPId does not exist
+        INSERT INTO [dbo].[BlockVicePresident] ([VicePresidentName], [ContactNo])
+        VALUES (@VicePresidentName, @ContactNo);
+    END
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdatePanchayatPresident]    Script Date: 12/15/2023 4:02:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdatePanchayatPresident]
+    @PId INT,
+    @Name VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[PanchayatPresident] WHERE [PId] = @PId)
+    BEGIN
+        -- Update if PId exists
+        UPDATE [dbo].[PanchayatPresident]
+        SET
+            [PresidentName] = @Name,
+            [ContactNo] = @ContactNo
+        WHERE
+            [PId] = @PId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if PId does not exist
+        INSERT INTO [dbo].[PanchayatPresident] ([PresidentName], [ContactNo])
+        VALUES (@Name, @ContactNo);
+    END
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdatePanchayatVicePresident]    Script Date: 12/15/2023 4:02:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdatePanchayatVicePresident]
+    @VPId INT,
+    @VicePresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[PanchayatVicePresident] WHERE [VPId] = @VPId)
+    BEGIN
+        -- Update if VPId exists
+        UPDATE [dbo].[PanchayatVicePresident]
+        SET
+            [VicePresidentName] = @VicePresidentName,
+            [ContactNo] = @ContactNo
+        WHERE
+            [VPId] = @VPId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if VPId does not exist
+        INSERT INTO [dbo].[PanchayatVicePresident] ([VicePresidentName], [ContactNo])
+        VALUES (@VicePresidentName, @ContactNo);
+    END
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdatePollingBoothAgent]    Script Date: 12/15/2023 4:02:27 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdatePollingBoothAgent]
+    @PollingAgentId INT,
+    @Name VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    UPDATE [dbo].[PollingBoothAgent]
+    SET
+        [Name] = @Name,
+        [ContactNo] = @ContactNo
+    WHERE
+        [PollingAgentId] = @PollingAgentId;
+END;
+
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateVillagePresident]    Script Date: 12/15/2023 4:02:34 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateVillagePresident]
+    @PId INT,
+    @Name VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[VillagePresident] WHERE [PId] = @PId)
+    BEGIN
+        -- Update if PId exists
+        UPDATE [dbo].[VillagePresident]
+        SET
+            [PresidentName] = @Name,
+            [ContactNo] = @ContactNo
+        WHERE
+            [PId] = @PId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if PId does not exist
+        INSERT INTO [dbo].[VillagePresident] ([PresidentName], [ContactNo])
+        VALUES (@Name, @ContactNo);
+    END
+END;
+
+USE [ElectionDummy]
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateVillageVicePresident]    Script Date: 12/15/2023 4:02:44 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[UpdateVillageVicePresident]
+    @VPId INT,
+    @VicePresidentName VARCHAR(255),
+    @ContactNo VARCHAR(15)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM [dbo].[VillageVicePresident] WHERE [VPId] = @VPId)
+    BEGIN
+        -- Update if VPId exists
+        UPDATE [dbo].[VillageVicePresident]
+        SET
+            [VicePresidentName] = @VicePresidentName,
+            [ContactNo] = @ContactNo
+        WHERE
+            [VPId] = @VPId;
+    END
+    ELSE
+    BEGIN
+        -- Insert if VPId does not exist
+        INSERT INTO [dbo].[VillageVicePresident] ([VicePresidentName], [ContactNo])
+        VALUES (@VicePresidentName, @ContactNo);
+    END
+END;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
